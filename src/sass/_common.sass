@@ -28,7 +28,7 @@ $s-bg: linear-gradient(120deg, rgba(10,10,10,.4) 0%, rgba(33,33,33,.45) 100%), u
 @function randomNum($min, $max)
   $rand: random()
   $randomNum: $min + floor($rand * (($max - $min) + 1))
-@return $randomNum
+  @return $randomNum
 
 //mixin for animation-duration and left-position ++
 @mixin t-bar
@@ -84,19 +84,19 @@ span
 
 //magic
 body
-&:not(.playing)
-    background: $f-bg
-&.playing
-    background: $s-bg
-    cursor: grabbing
-    #play-station
+    &:not(.playing)
+        background: $f-bg
+    &.playing
+        background: $s-bg
         cursor: grabbing
-    .bars
-        transform: translateY(0)
-        opacity: 1
-    span
-        transform: translateY(65%)
-        opacity: 0
+        #play-station
+            cursor: grabbing
+        .bars
+            transform: translateY(0)
+            opacity: 1
+        span
+            transform: translateY(65%)
+            opacity: 0
 
 //keyframes
 @keyframes a-bars
