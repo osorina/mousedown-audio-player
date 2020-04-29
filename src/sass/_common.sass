@@ -1,0 +1,109 @@
+html, body
+    height: 100%
+
+body
+    overflow: hidden
+    font-family: Lato, sans-serif
+    user-select: none
+    text-transform: uppercase
+    color: #fff
+    font-weight: 600
+    letter-spacing: 1.3px
+    background-size: cover !important
+    transition: .3s
+
+body, #play-station
+    display: flex
+    justify-content: center
+    align-items: center
+
+#play-station
+    cursor: grab
+
+$f-bg: linear-gradient(120deg, rgba(150,150,150,.2) 0%, rgba(73,73,73,.25) 60%), url("https://pp.userapi.com/c638631/v638631877/58c5a/fWxR_RWVpV4.jpg")
+
+$s-bg: linear-gradient(120deg, rgba(10,10,10,.4) 0%, rgba(33,33,33,.45) 100%), url("https://pp.userapi.com/c638631/v638631877/58c5a/fWxR_RWVpV4.jpg")
+
+//random function for single bar different animation-dur property
+@function randomNum($min, $max)
+  $rand: random()
+  $randomNum: $min + floor($rand * (($max - $min) + 1))
+@return $randomNum
+
+//mixin for animation-duration and left-position ++
+@mixin t-bar
+@for $i from 1 through 11
+    $value: $i * 4 - 3
+    &:nth-child(#{$i})
+        left: $value + px
+        animation-duration: #{randomNum(400, 500)}ms
+
+//optional stuff
+audio
+    position: absolute
+    pointer-events: none
+    top: 0
+
+.h3
+    position: fixed
+    bottom: 5px
+    right: 20px
+    padding: 12px 18px
+    font-size: 13px
+    background: #000
+
+//magic-container
+#play-station
+    border: 1px solid rgba(255,255,255,.2)
+    background: transparent
+    width: 125px
+    height: 125px
+    border-radius: 50%
+    position: relative
+.bars
+    width: 45px
+    height: 30px
+    position: absolute
+    opacity: 0
+    transform: translateY(-100%)
+    .bar
+        bottom: 0
+        width: 1px
+        height: 3px
+        background: #fff
+        position: absolute
+        animation: a-bars 1s linear infinite alternate
+    @include t-bar
+
+//transitions
+#play-station,
+.bars
+    transition: all .45s ease-out
+span
+    transition: all .35s ease-out
+
+//magic
+body
+&:not(.playing)
+    background: $f-bg
+&.playing
+    background: $s-bg
+    cursor: grabbing
+    #play-station
+        cursor: grabbing
+    .bars
+        transform: translateY(0)
+        opacity: 1
+    span
+        transform: translateY(65%)
+        opacity: 0
+
+//keyframes
+@keyframes a-bars
+    0%
+        opacity: .25
+        height: 3px
+
+    100%
+        opacity: 1
+        height: 30px
